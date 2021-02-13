@@ -1,0 +1,167 @@
+{% extends 'paymentlist/base.html' %}
+
+
+{% load static %}
+
+{% block content%}
+
+
+
+<div class="row justify-content-center mt-12">
+        <div class="col-md-10">
+                 <h1 id="titlename">Sezzjoni Zghazagh Pawlini Munxarin</h1><br>
+        </div>
+        <div class="col-md-1">
+              <button type="button" id="Create" class="btn btn-info btn-lg">
+                  <a href="{% url 'create_payments' %}">Create</a>
+              </button>
+        </div>
+
+</div>
+
+<div class="row justify-content-center mt-12">
+    <div class="container-fluid col-md-11">
+      <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#out_paymts">Outstanding Payments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#payed_payments">Paid Payments</a>
+            </li>
+    </ul>
+    <!-- Tab panes -->
+      <div class="tab-content" style="">
+                <div id="out_paymts" class="container-fluid tab-pane active"><br>
+                  <h3 id="outpayments">Payments Still Not Paid</h3>
+                  <table id="table1" class="table table-hover" style="width:100%">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Post Date</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Expense Amount</th>
+                          <th scope="col">Requested Amount</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                        </tr>
+                       </thead>
+                      <tbody>
+                        {% for l in list %}
+                        {% if l.is_paid is False %}
+                        <tr>
+                          <td width="10%">{{l.post_date}}</td>
+                          <td width="50%">{{l.title}}</td>
+                          <td width="20%">{{l.expense_amt}}</td>
+                          <td width="20%">{{l.requested_amt}}</td>
+                          <td width="5%">
+                              {% if l.attachment %}
+                              <a target="_blank" rel="noopener noreferrer" href="{{ l.attachment }}" class="btn btn-sm btn-outline-info">Attachment</a>
+                              {% endif %}
+                          </td>
+                          <td width="5%">
+                              <a href="{% url 'edit_payments' l.id  %}" class="btn btn-sm btn-outline-info">Edit</a>
+                          </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                      </tbody>
+                      <tfoot>
+<!--                      {% for gs in grandtotal %}-->
+<!--                      {% if gs.section == s.id %}-->
+<!--                        <tr>-->
+<!--                            <th>Grand Total</th><th></th><th>{{ gs.Total_income }}</th><th>{{ gs.Total_Expenditure }}</th>-->
+<!--                        </tr>-->
+<!--                      {% endif %}-->
+<!--                      {% endfor %}-->
+                      </tfoot>
+                    </table>
+                </div>
+
+                <div id="payed_payments" class="container-fluid tab-pane fade"><br>
+                  <h3 id="payedpymts">Paid Payments</h3>
+                  <table id="table2" class="table table-hover" style="width:100%">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Post Date</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Expense Amount</th>
+                          <th scope="col">Requested Amount</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                        </tr>
+                       </thead>
+                      <tbody>
+                      {% for l in list %}
+                      {% if l.is_paid is True %}
+                        <tr>
+                          <td width="10%">{{l.post_date}}</td>
+                          <td width="50%">{{l.title}}</td>
+                          <td width="20%">{{l.expense_amt}}</td>
+                          <td width="20%">{{l.requested_amt}}</td>
+                          <td width="5%">
+                              {% if l.attachment %}
+                              <a target="_blank" rel="noopener noreferrer" href="{{ l.attachment }}" class="btn btn-sm btn-outline-info">Attachment</a>
+                              {% endif %}
+                          </td>
+                          <td width="5%">
+                          </td>
+                        </tr>
+                      {% endif %}
+                      {% endfor %}
+                      </tbody>
+                      <tfoot>
+<!--                      {% for gs in grandtotal %}-->
+<!--                      {% if gs.section == s.id %}-->
+<!--                        <tr>-->
+<!--                            <th>Grand Total</th><th></th><th>{{ gs.Total_income }}</th><th>{{ gs.Total_Expenditure }}</th>-->
+<!--                        </tr>-->
+<!--                      {% endif %}-->
+<!--                      {% endfor %}-->
+                      </tfoot>
+                    </table>
+                </div>
+
+
+
+
+              <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/datatables.min.css"/>
+
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+                <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/datatables.min.js"></script>
+
+                <script type = "text/javascript">
+                      $(document).ready(function(){
+                        var exportTitle = $("#titlename_{{s.id}}").text();
+                        var str2 = " - Accounting Report";
+                        var fullexportTitle = exportTitle.concat(str2);
+                        $.fn.DataTable.ext.pager.numbers_length = 5;
+                        $('#table1').DataTable( {
+                            dom: "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-11'f>>" +
+                        "<'row'<'col-sm-12 col-md-4'B><'col-sm-12 col-md-8'p>>" +
+                            "<'row'<'col-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i>>",
+                            buttons: [
+                            ],
+
+                        });
+                         $('#table2').DataTable( {
+                             dom: "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-11'f>>" +
+                        "<'row'<'col-sm-12 col-md-4'B><'col-sm-12 col-md-8'p>>" +
+                            "<'row'<'col-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i>>",
+
+                         buttons: [
+                            ],
+                         });
+
+                    });
+
+
+                </script>
+      </div>
+
+    </div>
+</div>
+
+{% endblock %}

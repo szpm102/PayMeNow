@@ -1,0 +1,48 @@
+{% extends 'paymentlist/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block extrahead %}
+{{ form.media }}
+{% endblock %}
+
+{% load static %}
+
+{% block content%}
+
+{{ form.media }}
+
+ {% if error %}
+<div class="alert alert-danger" role="alert">
+ {{ error }}
+</div>
+ {% endif %}
+
+<div class="row justify-content-center mt-12">
+        <div class="col-md-11">
+                 <h1>{{ s.title }} <br>Create Receipt</h1><br>
+        </div>
+</div>
+
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<div class="row justify-content-center mt-12">
+    <div class="col-md-11">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-info btn-lg" style="margin:10px;">
+                    Create
+                </button>
+
+                <button type="submit" class="btn btn-danger btn-lg" style="margin:10px;">
+                 <a href="{% url 'all_payments' %}">Back</a>
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+
+{% endblock %}
