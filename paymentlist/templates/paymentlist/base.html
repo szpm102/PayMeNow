@@ -62,7 +62,7 @@
 
         <ul class="list-unstyled components">
             <li>
-                <a href="#">
+                <a href="{% url 'all_payments' %}">
                     <i class="fas fa-home"></i>
                     Home
                 </a>
@@ -76,17 +76,11 @@
 
 
             </li>-->
-            <li>
-                <a href="#">
-                    <i class="fas fa-users"></i>
-                    Members
-                </a>
-            </li>
 
             <li>
                 <a href="#">
-                    <i class="fas fa-money-check"></i>
-                    Out. Payments
+                    <i class="fas fa-chart-line"></i>
+                    Reports
                 </a>
             </li>
 
@@ -107,16 +101,19 @@
 
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item active">
-<!--                        Welcome <br>{{ user.first_name }}-->
-                        Welcome <br>Brendon
+                  Welcome <br>{{ user.first_name }}
                     </li>
+                    <img class="rounded-circle account-img center-align" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" width="40" height="40">
                     <li class="nav-item">
 
                     </li>
                     <a class="nav-link" href="#"> </a>
                     <li class="nav-item">
                         <a href="#" onclick="$('#signOutBtn').click()" class="btn btn-info">Sign Out</a>
-
+                        <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+                            {% csrf_token %}
+                            <button id="signOutBtn" type="submit">Logout</button>
+                        </form>
                     </li>
                 </ul>
             </div>

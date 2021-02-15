@@ -39,7 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'paymentlist',
     'bootstrap_datepicker_plus',
-    'bootstrap4'
+    'bootstrap4',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'django.contrib.sites',
+    'microsoft_auth',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'microsoft_auth.context_processors.microsoft',
             ],
         },
     },
@@ -75,14 +83,27 @@ WSGI_APPLICATION = 'paymesite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test_munxar_financial',
+        'USER': 'szpm_admin@szpm-sql',
+        'PASSWORD': '!pgressqlPass2020.',
+        'HOST': 'szpm-sql.postgres.database.azure.com',
+        'PORT': '5432',
     }
 }
 
+ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_EMAIL_REQUIRED  = True
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -102,6 +123,35 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+#New Autehnication for Facebook
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'FIELDS': [
+            'id',
+            'email',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'name',
+            'name_format',
+            'picture',
+            'short_name'
+        ]
+    }
+}
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    'microsoft_auth.backends.MicrosoftAuthenticationBackend',
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+MICROSOFT_AUTH_CLIENT_ID = '6d22bc9c-4803-4822-95f5-a6226881c3c1'
+MICROSOFT_AUTH_CLIENT_SECRET = '~RcVQVU_F2~FPA-T-6bW4NXwePD_bpkGH8'
+MICROSOFT_AUTH_LOGIN_TYPE = 'ma'
+LOGIN_REDIRECT_URL = "/paymenow"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -132,3 +182,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 API_LINK = 'https://szpm-finance-test.azurewebsites.net//_api'
 API_UNAME = 'usr_api'
 API_PW = 'P@$Sw0rDAp1'
+
+SITE_ID = 1

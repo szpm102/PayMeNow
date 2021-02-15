@@ -19,9 +19,16 @@
  {% endif %}
 
 <div class="row justify-content-center mt-12">
+    {% if title == "Create Receipt" %}
         <div class="col-md-11">
-                 <h1>{{ s.title }} <br>Create Receipt</h1><br>
+                 <h1>Create Receipt</h1><br>
         </div>
+     {% elif title == "Edit Receipt" %}
+        <div class="col-md-11">
+                 <h1>Edit Receipt</h1><br>
+        </div>
+    {% endif %}
+
 </div>
 
 
@@ -33,9 +40,17 @@
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
+            {% if title == "Create Receipt" %}
                 <button type="submit" class="btn btn-info btn-lg" style="margin:10px;">
                     Create
                 </button>
+            {% elif title == "Edit Receipt" %}
+            {% if Paid == False%}
+                <button type="submit" class="btn btn-info btn-lg" style="margin:10px;">
+                    Edit
+                </button>
+            {% endif %}
+            {% endif %}
 
                 <button type="submit" class="btn btn-danger btn-lg" style="margin:10px;">
                  <a href="{% url 'all_payments' %}">Back</a>

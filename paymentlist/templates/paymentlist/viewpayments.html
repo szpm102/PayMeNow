@@ -9,7 +9,7 @@
 
 <div class="row justify-content-center mt-12">
         <div class="col-md-10">
-                 <h1 id="titlename">Sezzjoni Zghazagh Pawlini Munxarin</h1><br>
+                 <h1 id="titlename">Receipt Controller Website</h1><br>
         </div>
         <div class="col-md-1">
               <button type="button" id="Create" class="btn btn-info btn-lg">
@@ -37,7 +37,7 @@
                   <table id="table1" class="table table-hover" style="width:100%">
                       <thead class="thead-light">
                         <tr>
-                          <th scope="col">Post Date</th>
+                          <th scope="col">Receipt Date</th>
                           <th scope="col">Description</th>
                           <th scope="col">Expense Amount</th>
                           <th scope="col">Requested Amount</th>
@@ -49,13 +49,13 @@
                         {% for l in list %}
                         {% if l.is_paid is False %}
                         <tr>
-                          <td width="10%">{{l.post_date}}</td>
+                          <td width="10%">{{l.receipt_date}}</td>
                           <td width="50%">{{l.title}}</td>
-                          <td width="20%">{{l.expense_amt}}</td>
-                          <td width="20%">{{l.requested_amt}}</td>
+                          <td width="20%">{{l.receipt_amount}}</td>
+                          <td width="20%">{{l.requested_amount}}</td>
                           <td width="5%">
-                              {% if l.attachment %}
-                              <a target="_blank" rel="noopener noreferrer" href="{{ l.attachment }}" class="btn btn-sm btn-outline-info">Attachment</a>
+                              {% if l.receipt_attachment %}
+                              <a target="_blank" rel="noopener noreferrer" href="{{ l.receipt_attachment.url }}" class="btn btn-sm btn-outline-info">Attachment</a>
                               {% endif %}
                           </td>
                           <td width="5%">
@@ -82,7 +82,7 @@
                   <table id="table2" class="table table-hover" style="width:100%">
                       <thead class="thead-light">
                         <tr>
-                          <th scope="col">Post Date</th>
+                          <th scope="col">Receipt Date</th>
                           <th scope="col">Description</th>
                           <th scope="col">Expense Amount</th>
                           <th scope="col">Requested Amount</th>
@@ -94,13 +94,13 @@
                       {% for l in list %}
                       {% if l.is_paid is True %}
                         <tr>
-                          <td width="10%">{{l.post_date}}</td>
+                          <td width="10%">{{l.receipt_date}}</td>
                           <td width="50%">{{l.title}}</td>
-                          <td width="20%">{{l.expense_amt}}</td>
-                          <td width="20%">{{l.requested_amt}}</td>
+                          <td width="20%">{{l.receipt_amount}}</td>
+                          <td width="20%">{{l.requested_amount}}</td>
                           <td width="5%">
-                              {% if l.attachment %}
-                              <a target="_blank" rel="noopener noreferrer" href="{{ l.attachment }}" class="btn btn-sm btn-outline-info">Attachment</a>
+                              {% if l.receipt_attachment %}
+                              <a target="_blank" rel="noopener noreferrer" href="{{ l.receipt_attachment.url }}" class="btn btn-sm btn-outline-info">Attachment</a>
                               {% endif %}
                           </td>
                           <td width="5%">
