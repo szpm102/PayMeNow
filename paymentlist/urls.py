@@ -8,7 +8,7 @@ urlpatterns = [
     #homepage
     path('', views.all_payments, name='all_payments'),
     path('create', views.create_payments, name='create_payments'),
-    path('edit/<int:trn_pk>', views.edit_payments, name='edit_payments'),
+    path('edit/<uuid:unique_id>', views.edit_payments, name='edit_payments'),
 ]
 
 if settings.DEBUG:

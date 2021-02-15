@@ -9,6 +9,7 @@ from django.db import models
 import uuid
 import os
 from datetime import datetime
+from django.contrib.auth.models import User
 
 def transaction_image_file_path(instance, filename):
     """ Generate file path for new image """
@@ -88,6 +89,7 @@ class SzpmApiMobileUser(models.Model):
 
 
 class SzpmApiOutstandingTransaction(models.Model):
+    unique_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     title = models.CharField(max_length=50)
     note = models.CharField(max_length=100, blank=True, null=True)
     receipt_date = models.DateField()
@@ -101,7 +103,7 @@ class SzpmApiOutstandingTransaction(models.Model):
     feast_group = models.ForeignKey(FinancerecordsNormalfestagrouping, models.DO_NOTHING, blank=True, null=True)
     feast_year = models.ForeignKey(FinancerecordsNormalfestayear, models.DO_NOTHING, blank=True, null=True)
     date_created = models.DateField(auto_now=True)
-    user = models.ForeignKey(SzpmApiMobileUser, models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title

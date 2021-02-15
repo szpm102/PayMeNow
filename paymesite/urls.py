@@ -26,7 +26,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('paymenow/', include('paymentlist.urls')),
     #path('login/', pl.loginuser, name='loginuser'),
-    path('login/', TemplateView.as_view(template_name='paymentlist/login.html'), name='loginuser'),
+    path('', TemplateView.as_view(template_name='paymentlist/login.html'), name='loginuser'),
     path('logout/', pl.logoutuser, name='logoutuser'),
     path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
 

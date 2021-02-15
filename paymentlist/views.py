@@ -5,45 +5,50 @@ from .forms import PaymentListForm
 from .models import SzpmApiOutstandingTransaction
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required, permission_required
+from allauth.socialaccount.models import SocialAccount
+
 # Create your views here.
 
 USER_ID = 18
-@login_required(redirect_field_name='next', login_url='/login/')
+@login_required(redirect_field_name='next', login_url='/')
 def all_payments(request):
-    pymts = SzpmApiOutstandingTransaction.objects.filter(user=USER_ID).order_by('-date_created')
-    return render(request, 'paymentlist/viewpayments.html', {'list': pymts})
+    img=SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
+    pymts = SzpmApiOutstandingTransaction.objects.filter(user=request.user).order_by('-date_created')
+    return render(request, 'paymentlist/viewpayments.html', {'list': pymts, 'img':img})
 
-@login_required(redirect_field_name='next', login_url='/login/')
+@login_required(redirect_field_name='next', login_url='/')
 def create_payments(request):
+    img = SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
     if request.method == 'GET':
          form = PaymentListForm()
-         return render(request, 'paymentlist/createeditpayments.html', {'form': form, 'title': 'Create Receipt'})
+         return render(request, 'paymentlist/createeditpayments.html', {'form': form, 'title': 'Create Receipt','img':img})
     else:
         form = PaymentListForm(request.POST, request.FILES)
         if form.is_valid():
             newtrans=form.save(commit=False)
-            newtrans.user_id=USER_ID
+            newtrans.user = request.user
             newtrans.save()
             return redirect ('all_payments')
         else:
-            return render(request, 'paymentlist/createeditpayments.html', {'form': form,'error': form.errors, 'title': 'Create Receipt'})
+            return render(request, 'paymentlist/createeditpayments.html', {'form': form,'error': form.errors, 'title': 'Create Receipt','img':img})
 
-@login_required(redirect_field_name='next', login_url='/login/')
-def edit_payments(request, trn_pk):
-    trns = get_object_or_404(SzpmApiOutstandingTransaction, pk=trn_pk)
+@login_required(redirect_field_name='next', login_url='/')
+def edit_payments(request, unique_id):
+    img = SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
+    trns = get_object_or_404(SzpmApiOutstandingTransaction, unique_id=unique_id)
     print (trns.is_paid)
     if  request.method =='GET':
         form = PaymentListForm(instance=trns)
-        return render(request, 'paymentlist/createeditpayments.html', {'form': form, 'title': 'Edit Receipt', 'Paid':trns.is_paid })
+        return render(request, 'paymentlist/createeditpayments.html', {'form': form, 'title': 'Edit Receipt', 'Paid':trns.is_paid,'img':img })
     else:
         form = PaymentListForm(request.POST, request.FILES,instance=trns)
         if form.is_valid():
             form.save()
             return redirect('all_payments')
         else:
-            return render(request, 'paymentlist/createeditpayments.html', {'form': form,'error': form.errors, 'title': 'Edit Receipt','Paid':trns.is_paid })
+            return render(request, 'paymentlist/createeditpayments.html', {'form': form,'error': form.errors, 'title': 'Edit Receipt','Paid':trns.is_paid,'img':img })
 
-@login_required(redirect_field_name='next', login_url='/login/')
+@login_required(redirect_field_name='next', login_url='/')
 def logoutuser(request):
     if request.method == 'POST':
         logout(request)
