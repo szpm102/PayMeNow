@@ -10,13 +10,13 @@ from allauth.socialaccount.models import SocialAccount
 # Create your views here.
 
 USER_ID = 18
-@login_required(redirect_field_name='next', login_url='/')
+@login_required(redirect_field_name='next', login_url='/login/')
 def all_payments(request):
     img=SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
     pymts = SzpmApiOutstandingTransaction.objects.filter(user=request.user).order_by('-date_created')
     return render(request, 'paymentlist/viewpayments.html', {'list': pymts, 'img':img})
 
-@login_required(redirect_field_name='next', login_url='/')
+@login_required(redirect_field_name='next', login_url='/login/')
 def create_payments(request):
     img = SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
     if request.method == 'GET':
@@ -32,7 +32,7 @@ def create_payments(request):
         else:
             return render(request, 'paymentlist/createeditpayments.html', {'form': form,'error': form.errors, 'title': 'Create Receipt','img':img})
 
-@login_required(redirect_field_name='next', login_url='/')
+@login_required(redirect_field_name='next', login_url='/login/')
 def edit_payments(request, unique_id):
     img = SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
     trns = get_object_or_404(SzpmApiOutstandingTransaction, unique_id=unique_id)
@@ -48,7 +48,7 @@ def edit_payments(request, unique_id):
         else:
             return render(request, 'paymentlist/createeditpayments.html', {'form': form,'error': form.errors, 'title': 'Edit Receipt','Paid':trns.is_paid,'img':img })
 
-@login_required(redirect_field_name='next', login_url='/')
+@login_required(redirect_field_name='next', login_url='/login/')
 def logoutuser(request):
     if request.method == 'POST':
         logout(request)
