@@ -112,6 +112,9 @@
                         <a href="#" onclick="$('#signOutBtn').click()" class="btn btn-info">Sign Out</a>
                         <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
                             {% csrf_token %}
+                              {% if redirect_field_value %}
+                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                              {% endif %}
                             <button id="signOutBtn" type="submit">Logout</button>
                         </form>
                     </li>
