@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +25,7 @@ SECRET_KEY = '_281q%ruv34r@veu_7npct#sg!0r=objk)1@&2g)_de!6+)d@b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -94,11 +94,11 @@ WSGI_APPLICATION = 'paymesite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test_munxar_financial',
-        'USER': 'szpm_admin@szpm-sql',
-        'PASSWORD': '!pgressqlPass2020.',
-        'HOST': 'szpm-sql.postgres.database.azure.com',
-        'PORT': '5432',
+        'NAME': os.environ.get('DATABASE_NAME', ''),
+        'USER': os.environ.get('DATABASE_USER', ''),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
+        'HOST': os.environ.get('DATABASE_HOST', ''),
+        'PORT': os.environ.get('DATABASE_PORT', ''),
     }
 }
 
@@ -180,9 +180,10 @@ STATICFILES_DIRS = ( os.path.join('static'), )
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-
-API_LINK = 'https://szpm-finance-test.azurewebsites.net//_api'
-API_UNAME = 'usr_api'
-API_PW = 'P@$Sw0rDAp1'
-
 SITE_ID = 1
+
+try:
+    from .local_settings import *
+    #INSTALLED_APPS += DEV_APPS
+except ImportError:
+    print ('Looks like no local file. You are on production')
