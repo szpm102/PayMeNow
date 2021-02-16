@@ -103,13 +103,13 @@
                     <li class="nav-item active">
                   Welcome <br>{{ user.first_name }}
                     </li>
-                    <img class="rounded-circle account-img center-align" src="{{ img }}" width="40" height="40">
                     <li class="nav-item">
 
                     </li>
                     <a class="nav-link" href="#"> </a>
+
                     <li class="nav-item">
-                        <a href="#" onclick="$('#signOutBtn').click()" class="btn btn-info">Sign Out</a>
+                        <a href="#" onclick="$('#signOutBtn').click()" title="Sign Out"><img class="rounded-circle account-img center-align" src="{{ img }}" title="Sign Out" id="profpiclogo"></a>
                         <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
                             {% csrf_token %}
                               {% if redirect_field_value %}
@@ -118,6 +118,7 @@
                             <button id="signOutBtn" type="submit">Logout</button>
                         </form>
                     </li>
+
                 </ul>
             </div>
         </nav>
