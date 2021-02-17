@@ -10,9 +10,12 @@ from allauth.socialaccount.models import SocialAccount
 # Create your views here.
 
 
-@login_required(redirect_field_name='next', login_url='/login/')
+#@login_required(redirect_field_name='next', login_url='/login/')
 def all_payments(request):
-    img=SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
+    try:
+        img=SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
+    except:
+        img=''
     pymts = SzpmApiOutstandingTransaction.objects.filter(user=request.user).order_by('-date_created')
     return render(request, 'paymentlist/viewpayments.html', {'list': pymts, 'img':img})
 

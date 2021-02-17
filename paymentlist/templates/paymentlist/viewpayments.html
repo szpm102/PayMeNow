@@ -79,7 +79,7 @@
 
                 <div id="payed_payments" class="container-fluid tab-pane fade"><br>
                   <h3 id="payedpymts">Paid Payments</h3>
-                  <table id="table2" class="table table-hover" style="width:100%">
+                  <table id="table2" width="100%" class="table table-hover" style="width:100%">
                       <thead class="thead-light">
                         <tr>
                           <th scope="col">Receipt Date</th>
@@ -90,7 +90,7 @@
                           <th scope="col"></th>
                         </tr>
                        </thead>
-                      <tbody>
+                      <tbody id="tableBody2">
                       {% for l in list %}
                       {% if l.is_paid is True %}
                         <tr>
@@ -131,10 +131,8 @@
                 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/datatables.min.js"></script>
 
                 <script type = "text/javascript">
+
                       $(document).ready(function(){
-                        var exportTitle = $("#titlename_{{s.id}}").text();
-                        var str2 = " - Accounting Report";
-                        var fullexportTitle = exportTitle.concat(str2);
                         $.fn.DataTable.ext.pager.numbers_length = 5;
                         $('#table1').DataTable( {
                             dom: "<'row'<'col-sm-12 col-md-1'l><'col-sm-12 col-md-11'f>>" +
@@ -144,7 +142,9 @@
                             buttons: [
                             ],
                             "bSort" : false,
-                             "scrollX": true,
+                             "initComplete": function (settings, json) {
+                                $("#DataTableID").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                              },
                             "scrollCollapse": true,
 
                         });
@@ -157,11 +157,16 @@
                          buttons: [
                             ],
                             "bSort" : false,
-                             "scrollX": true,
+                             "initComplete": function (settings, json) {
+                                $("#DataTableID").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                              },
                             "scrollCollapse": true,
-                         });
+
+                         }).columns.adjust();
 
                     });
+
+
 
 
                 </script>
