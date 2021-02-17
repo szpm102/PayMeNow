@@ -107,8 +107,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_EMAIL_REQUIRED  = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_LOGOUT_ON_GET = True
-#ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-#SECURE_SSL_REDIRECT = False
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+SECURE_SSL_REDIRECT = True
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
