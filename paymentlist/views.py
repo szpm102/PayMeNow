@@ -9,7 +9,7 @@ from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
 
-USER_ID = 18
+
 @login_required(redirect_field_name='next', login_url='/login/')
 def all_payments(request):
     img=SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
