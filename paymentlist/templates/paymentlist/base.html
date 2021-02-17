@@ -109,7 +109,10 @@
                     <a class="nav-link" href="#"> </a>
 
                     <li class="nav-item">
+                        {% if img %}
                         <a href="#" onclick="$('#signOutBtn').click()" title="Sign Out"><img class="rounded-circle account-img center-align" src="{{ img }}" title="Sign Out" id="profpiclogo"></a>
+                        {% else %}
+                        <a href="#" onclick="$('#signOutBtn').click()" title="Sign Out"><img class="rounded-circle account-img center-align" src="{% static "paymesite/logo.jpg" %}" title="Sign Out" id="profpiclogo"></a>
                         <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
                             {% csrf_token %}
                               {% if redirect_field_value %}
