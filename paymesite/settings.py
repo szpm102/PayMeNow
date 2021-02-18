@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'django.contrib.sites',
     'microsoft_auth',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -178,13 +179,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+
+
+
 STATIC_URL = '/static/'
 STATIC_ROOT = "/home/site/wwwroot/static/"
 #STATICFILES_DIRS = ( os.path.join('static'), )
 #STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+AZURE_ACCOUNT_NAME = 'szpmfiles'
+AZURE_ACCOUNT_KEY = '9Xw/kjX5YLhvEG7LGal3gVWoKlsw0uficy6iSFcFS/QHH2r9i1VJx9CEzm7+tsNSPXwgHJhiiSpBSCAG9hFL8Q=='
+AZURE_CUSTOM_DOMAIN = f'szpmfiles.blob.core.windows.net'
+AZURE_LOCATION = 'media-test'
+AZURE_CONTAINER = 'media'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 
 SITE_ID = 1
 

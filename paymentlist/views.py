@@ -10,18 +10,22 @@ from allauth.socialaccount.models import SocialAccount
 # Create your views here.
 
 
-@login_required(redirect_field_name='next', login_url='/login/')
+#@login_required(redirect_field_name='next', login_url='/login/')
 def all_payments(request):
-    try:
+    print (SocialAccount.objects.filter(user=request.user).count())
+    if SocialAccount.objects.filter(user=request.user).exists():
         img=SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
-    except:
-        img=''
-    pymts = SzpmApiOutstandingTransaction.objects.filter(user=request.user).order_by('-date_created')
+    else:
+        img = None
+    pymts = SzpmApiOutstandingTransaction.objects.filter(user=request.user).order_by('date_created')
     return render(request, 'paymentlist/viewpayments.html', {'list': pymts, 'img':img})
 
 @login_required(redirect_field_name='next', login_url='/login/')
 def create_payments(request):
-    img = SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
+    if SocialAccount.objects.filter(user=request.user).exists():
+        img = SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
+    else:
+        img = None
     if request.method == 'GET':
          form = PaymentListForm()
          return render(request, 'paymentlist/createeditpayments.html', {'form': form, 'title': 'Create Receipt','img':img})
@@ -37,7 +41,10 @@ def create_payments(request):
 
 @login_required(redirect_field_name='next', login_url='/login/')
 def edit_payments(request, unique_id):
-    img = SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
+    if SocialAccount.objects.filter(user=request.user).exists():
+        img = SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
+    else:
+        img = None
     trns = get_object_or_404(SzpmApiOutstandingTransaction, unique_id=unique_id)
     print (trns.is_paid)
     if  request.method =='GET':
