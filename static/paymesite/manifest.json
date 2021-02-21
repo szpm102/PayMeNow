@@ -1,5 +1,9 @@
 {
- "name": "App",
+  "short_name": "PayMeNow",
+  "name": "PayMeNow",
+  "theme_color": "#4A90E2",
+  "background_color": "#F7F8F9",
+  "display": "standalone",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

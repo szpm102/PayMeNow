@@ -42,14 +42,7 @@
     <script src="{% static 'paymesite/addtohomescreen.js' %}"></script>
 
     <script>
-
-        if (
-        (("standalone" in window.navigator) && !window.navigator.standalone) //ios
-        ||
-        ( !window.matchMedia('(display-mode: standalone)').matches ) //andriod
-        ) {
-            addToHomescreen();
-           }
+    addToHomescreen();
     </script>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -90,12 +83,6 @@
     </script>
 
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Pay Me Now">
 </head>
 
 <body>

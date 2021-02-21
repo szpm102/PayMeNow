@@ -1,6 +1,9 @@
 {% load static %}
 {% load socialaccount %}
 {% providers_media_js %}
+
+<html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +21,7 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
+	<link rel="manifest" href="{% static 'paymesite/manifest.json' %}">
 </head>
 
 <body>
@@ -34,17 +37,33 @@
 							<h3>Sign In</h3>
 				</div>
 				<div class="d-flex justify-content-center mb-5 form_container">
-                <div class="d-flex justify-content-center mb-5 form_container"> <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-lg btn-primary "> <span>Login with Facebook</span> <i class="fab fa-facebook-f"></i> </a> </div>
-<!--				<div class="d-flex justify-content-center mb-3 form_container"> <a href="{% provider_login_url "google" %}" class="btn btn-lg btn-danger "> <span>Login with Google</span> <i class="fab fa-google"></i> </a> </div>-->
-<!--				<div class="d-flex justify-content-center mb-3 form_container"> <a href="#" class="btn btn-lg btn-warning"> <span>Login with Office365</span> <i class="fab fa-microsoft"></i> </a> </div>-->
-				<div class="d-flex justify-content-center form_container">
+					<div class="d-flex justify-content-center mb-5 form_container"> <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-lg btn-primary "> <span>Login with Facebook</span> <i class="fab fa-facebook-f"></i> </a> </div>
+	<!--				<div class="d-flex justify-content-center mb-3 form_container"> <a href="{% provider_login_url "google" %}" class="btn btn-lg btn-danger "> <span>Login with Google</span> <i class="fab fa-google"></i> </a> </div>-->
+	<!--				<div class="d-flex justify-content-center mb-3 form_container"> <a href="#" class="btn btn-lg btn-warning"> <span>Login with Office365</span> <i class="fab fa-microsoft"></i> </a> </div>-->
+					<div class="d-flex justify-content-center form_container">
 
-				{% if error %}
-				<div align="center" class="alert alert-danger" role="alert">
-					{{ error }}
+						{% if error %}
+						<div align="center" class="alert alert-danger" role="alert">
+							{{ error }}
+						</div>
+						{% endif %}
+					</div>
 				</div>
-				{% endif %}
 			</div>
 		</div>
 	</div>
 </body>
+
+<script>
+ if ('serviceWorker' in navigator) {
+    console.log("Will the service worker register?");
+    navigator.serviceWorker.register('/static/paymesite/service-worker.js')
+      .then(function(reg){
+        console.log("Yes, it did.");
+     }).catch(function(err) {
+        console.log("No it didn't. This happened:", err)
+    });
+ }
+</script>
+
+</html>
