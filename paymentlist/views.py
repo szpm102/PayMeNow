@@ -12,7 +12,6 @@ from allauth.socialaccount.models import SocialAccount
 
 @login_required(redirect_field_name='next', login_url='/login/')
 def all_payments(request):
-    print (SocialAccount.objects.filter(user=request.user).count())
     if SocialAccount.objects.filter(user=request.user).exists():
         img=SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
     else:

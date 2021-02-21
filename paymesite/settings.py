@@ -188,14 +188,16 @@ STATIC_ROOT = "/home/site/wwwroot/static/"
 #STATICFILES_DIRS = ( os.path.join('static'), )
 #STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
-AZURE_ACCOUNT_NAME = 'szpmfiles'
-AZURE_ACCOUNT_KEY = '9Xw/kjX5YLhvEG7LGal3gVWoKlsw0uficy6iSFcFS/QHH2r9i1VJx9CEzm7+tsNSPXwgHJhiiSpBSCAG9hFL8Q=='
-AZURE_CUSTOM_DOMAIN = f'szpmfiles.blob.core.windows.net'
-AZURE_LOCATION = 'media-test'
-AZURE_CONTAINER = 'media'
+AZURE_ACCOUNT_NAME = os.environ.get('AZURE_ACCOUNT_NAME', '')
+AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY', '')
+AZURE_CUSTOM_DOMAIN = os.environ.get('AZURE_CUSTOM_DOMAIN', '')
+AZURE_LOCATION = os.environ.get('AZURE_LOCATION', '')
+AZURE_CONTAINER = os.environ.get('AZURE_CONTAINER', '')
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+
+THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
 SITE_ID = 1
 
