@@ -1,6 +1,7 @@
 {% load static %}
 {% load socialaccount %}
 {% providers_media_js %}
+{% load pwa_webpush %}
 
 <html>
 
@@ -18,10 +19,11 @@
 	<link rel="icon" type="image/png" href="{% static "paymesite/logo.jpg" %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
 
+	{% progressive_web_app_meta %}
+
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-	<link rel="manifest" href="{% static 'paymesite/manifest.json' %}">
 </head>
 
 <body>
@@ -53,17 +55,5 @@
 		</div>
 	</div>
 </body>
-
-<script>
- if ('serviceWorker' in navigator) {
-    console.log("Will the service worker register?");
-    navigator.serviceWorker.register('/static/paymesite/service-worker.js')
-      .then(function(reg){
-        console.log("Yes, it did.");
-     }).catch(function(err) {
-        console.log("No it didn't. This happened:", err)
-    });
- }
-</script>
 
 </html>

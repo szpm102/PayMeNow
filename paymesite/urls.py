@@ -31,7 +31,8 @@ urlpatterns = [
     path('login/', TemplateView.as_view(template_name='paymentlist/login.html'), name='loginuser'),
     path('logout/', pl.logoutuser, name='logoutuser'),
     path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
-    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('paymesite/favicon.ico')))
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('paymesite/favicon.ico'))),
+    path(r'', include('pwa_webpush.urls'))
 
 ]
 
