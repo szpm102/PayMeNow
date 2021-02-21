@@ -16,7 +16,7 @@ def all_payments(request):
         img=SocialAccount.objects.filter(user=request.user)[0].extra_data['picture']['data']['url']
     else:
         img = None
-    pymts = SzpmApiOutstandingTransaction.objects.filter(user=request.user).order_by('date_created')
+    pymts = SzpmApiOutstandingTransaction.objects.filter(user=request.user).order_by('-date_created')
     return render(request, 'paymentlist/viewpayments.html', {'list': pymts, 'img':img})
 
 @login_required(redirect_field_name='next', login_url='/login/')
