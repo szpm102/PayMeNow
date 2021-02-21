@@ -25,8 +25,8 @@ class PaymentListForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
 
     def clean(self):
-        receipt_amount = self.cleaned_data.get('expense_amt', False)
-        requested_amount = self.cleaned_data.get('requested_amt', False)
+        receipt_amount = self.cleaned_data.get('receipt_amount', False)
+        requested_amount = self.cleaned_data.get('requested_amount', False)
         if requested_amount > receipt_amount:
             raise ValidationError('Requested Amount cannot be greater then Receipt amount')
 
