@@ -138,9 +138,9 @@ AUTH_PASSWORD_VALIDATORS = [
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
-        'SCOPE': ['email', 'public_profile', 'user_friends'],
-        # 'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        # 'INIT_PARAMS': {'cookie': True},
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
         'FIELDS': [
             'id',
             'email',
@@ -154,7 +154,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'EXCHANGE_TOKEN': True,
         'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.12',
+        'LOCALE_FUNC': lambda request: 'en-US',
     }
 }
 
