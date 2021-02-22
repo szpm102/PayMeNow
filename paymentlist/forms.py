@@ -29,6 +29,9 @@ class PaymentListForm(forms.ModelForm):
         requested_amount = self.cleaned_data.get('requested_amount', False)
         if requested_amount > receipt_amount:
             raise ValidationError('Requested Amount cannot be greater then Receipt amount')
+        attachment = self.cleaned_data.get('receipt_attachment', False)
+        if attachment == None and receipt_amount>=50:
+            raise ValidationError('Attachment Required for Receipts greater than €50')
 
 # def get_token():
 #     while True:
