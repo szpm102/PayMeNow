@@ -137,10 +137,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'METHOD': 'oauth2',
+        #'METHOD': 'oauth2',
         'SCOPE': ['email', 'public_profile', 'user_friends'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'INIT_PARAMS': {'cookie': True},
+        # 'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        # 'INIT_PARAMS': {'cookie': True},
         'FIELDS': [
             'id',
             'email',
