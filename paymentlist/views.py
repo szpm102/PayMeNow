@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from allauth.socialaccount.models import SocialAccount
 
 # Create your views here.
+def loginuser(request):
+    if request.method == 'GET':
+        return render(request, 'paymentlist/login.html', {'browser':request.user_agent.browser.family})
 
 
 @login_required(redirect_field_name='next', login_url='/login/')

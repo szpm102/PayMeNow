@@ -28,7 +28,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('paymentlist.urls')),
     #path('login/', pl.loginuser, name='loginuser'),
-    path('login/', TemplateView.as_view(template_name='paymentlist/login.html'), name='loginuser'),
+    path('login/', pl.loginuser, name='loginuser'),
     path('logout/', pl.logoutuser, name='logoutuser'),
     path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('paymesite/favicon.ico'))),
