@@ -37,10 +37,10 @@
 				</div>
 				<div class="input-group justify-content-center mb-5">
 							<h3>Sign In</h3>
-					<p>{{ browser }}</p>
+<!--					<p>{{ browser }}</p>-->
 				</div>
 				<div class="d-flex justify-content-center mb-5 form_container">
-					{% if browser == "Mobile Safari" %}
+					{% if browser == "Mobile Safari" or browser == "Safari" %}
 					<div class="d-flex justify-content-center mb-5 form_container"> <a href="{% provider_login_url "facebook" method="js_sdk" %}" class="btn btn-lg btn-primary "> <span>Login with Facebook</span> <i class="fab fa-facebook-f"></i> </a> </div>
 					{% else %}
 					<div class="d-flex justify-content-center mb-5 form_container"> <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-lg btn-primary "> <span>Login with Facebook</span> <i class="fab fa-facebook-f"></i> </a> </div>
