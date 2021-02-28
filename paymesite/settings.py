@@ -204,9 +204,7 @@ USE_TZ = True
 
 
 
-# STATIC_URL = '/static/'
-# STATIC_ROOT = "/home/site/wwwroot/static/"
-STATICFILES_DIRS = ( os.path.join('static'), )
+
 #STATICFILES_DIRS = ( os.path.join('static'), )
 #STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
@@ -217,11 +215,14 @@ AZURE_LOCATION = os.environ.get('AZURE_LOCATION', '')
 AZURE_CONTAINER = os.environ.get('AZURE_CONTAINER', '')
 STATIC_CONTAINER = os.environ.get('STATIC_CONTAINER', '')
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
+#STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-STATICFILES_STORAGE = 'paymesite.custom_azure.PublicAzureStorage'
+#STATICFILES_STORAGE = 'paymesite.custom_azure.PublicAzureStorage'
 
+STATIC_URL = '/static/'
+STATIC_ROOT = "/home/site/wwwroot/static/"
+STATICFILES_DIRS = ( os.path.join('static'), )
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
@@ -229,7 +230,7 @@ SITE_ID = 1
 
 
 PWA_APP_NAME = 'Pay Me Now'
-PWA_APP_DESCRIPTION = "App used to request payment for purchases done on behalf of SZPM"
+PWA_APP_DESCRIPTION = "App used to request payment for pruchases done on behalf of SZPM"
 PWA_APP_THEME_COLOR = '#0A0302'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'
@@ -239,19 +240,19 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': f'{STATIC_URL}/paymesite/logo.jpg',
+        'src': '/static/paymesite/logo.jpg',
         'sizes': '160x160'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': f'{STATIC_URL}/paymesite/apple_icon.png',
+        'src': '/static/paymesite/apple_icon.png',
         'sizes': '160x160'
     }
 ]
 PWA_APP_SPLASH_SCREEN = [
     {
-        'src': f'{STATIC_URL}/images/icons/splash-640x1136.png',
+        'src': '/static/images/icons/splash-640x1136.png',
         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     }
 ]
