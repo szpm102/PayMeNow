@@ -229,7 +229,7 @@ SITE_ID = 1
 
 
 PWA_APP_NAME = 'Pay Me Now'
-PWA_APP_DESCRIPTION = "App used to request payment for pruchases done on behalf of SZPM"
+PWA_APP_DESCRIPTION = "App used to request payment for purchases done on behalf of SZPM"
 PWA_APP_THEME_COLOR = '#0A0302'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'
