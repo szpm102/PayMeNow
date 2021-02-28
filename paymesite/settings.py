@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_281q%ruv34r@veu_7npct#sg!0r=objk)1@&2g)_de!6+)d@b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -114,9 +114,9 @@ SOCIALACCOUNT_EMAIL_REQUIRED  = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-DEFAULT_HTTP_PROTOCOL = "https"
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#DEFAULT_HTTP_PROTOCOL = "https"
+#SECURE_SSL_REDIRECT = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -222,7 +222,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
-STATICFILES_DIRS = ( os.path.join('static'), )
+STATICFILES_DIRS = (os.path.join('static'), )
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
