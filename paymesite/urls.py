@@ -32,7 +32,7 @@ urlpatterns = [
     path('logout/', pl.logoutuser, name='logoutuser'),
     path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('paymesite/favicon.ico'))),
-    path(r'', include('pwa_webpush.urls'))
+    path('', include('pwa_webpush.urls'))
 
 ]
 
