@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_281q%ruv34r@veu_7npct#sg!0r=objk)1@&2g)_de!6+)d@b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -204,8 +204,8 @@ USE_TZ = True
 
 
 
-STATIC_URL = '/static/'
-STATIC_ROOT = "/home/site/wwwroot/static/"
+# STATIC_URL = '/static/'
+# STATIC_ROOT = "/home/site/wwwroot/static/"
 #STATICFILES_DIRS = ( os.path.join('static'), )
 #STATICFILES_DIRS = ( os.path.join('static'), )
 #STATIC_ROOT = os.path.join(BASE_DIR,'static')
@@ -215,9 +215,12 @@ AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY', '')
 AZURE_CUSTOM_DOMAIN = os.environ.get('AZURE_CUSTOM_DOMAIN', '')
 AZURE_LOCATION = os.environ.get('AZURE_LOCATION', '')
 AZURE_CONTAINER = os.environ.get('AZURE_CONTAINER', '')
+STATIC_CONTAINER = os.environ.get('STATIC_CONTAINER', '')
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+STATICFILES_STORAGE = 'paymesite.custom_azure.PublicAzureStorage'
 
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
