@@ -213,7 +213,7 @@ AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY', '')
 AZURE_CUSTOM_DOMAIN = os.environ.get('AZURE_CUSTOM_DOMAIN', '')
 AZURE_LOCATION = os.environ.get('AZURE_LOCATION', '')
 AZURE_CONTAINER = os.environ.get('AZURE_CONTAINER', '')
-STATIC_CONTAINER = os.environ.get('STATIC_CONTAINER', '')
+#STATIC_CONTAINER = os.environ.get('STATIC_CONTAINER', '')
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
 #STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_LOCATION}/'
 
@@ -221,7 +221,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 #STATICFILES_STORAGE = 'paymesite.custom_azure.PublicAzureStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/home/site/wwwroot/static/"
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = ( os.path.join('static'), )
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
