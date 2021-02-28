@@ -221,7 +221,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 #STATICFILES_STORAGE = 'paymesite.custom_azure.PublicAzureStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = "/home/site/wwwroot/static/"
+#STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = (os.path.join('static'), )
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
@@ -258,7 +259,6 @@ PWA_APP_SPLASH_SCREEN = [
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
-
 
 try:
     from .local_settings import *
